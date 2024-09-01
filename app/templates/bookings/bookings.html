@@ -3,7 +3,7 @@
 {% block head %}
     <script>
         async function loginUser() {
-            const url = "http://localhost:8000/api/v1/auth/logout";
+            const url = "http://localhost:8000/api/auth/logout";
             const bookingId = document.getElementById("bookingId").value;
 
             await fetch(url, {
@@ -23,7 +23,7 @@
 
 {% block content %}
 <div class="flex justify-center mb-10 text-3xl">
-    Мои брони
+    My booking
 </div>
 <div class="flex flex-col items-center">
     {% for booking in bookings %}
@@ -32,7 +32,7 @@
                 <span>{{ booking.hotel_name }}</span>
             </div>
             <div class="flex shadow-md mb-5 w-fit pr-4">
-                <img src="{{ url_for('static', path='images/' + booking.image_id|string + '.webp') }}" alt="Комната" width="250">
+                <img src="{{ url_for('static', path='images/1.webp') }}" alt="Room" width="250">
                 <div class="px-4 py-3">
                     <div class="pl-1 font-bold">{{ booking.name }}</div>
                     <hr class="my-2">
@@ -42,13 +42,13 @@
                     <div class="pl-1">{{ " · ".join(booking.services) }}</div>
                 </div>
                 <div class="flex justify-top flex-col items-center">
-                    <span>✅ Забронировано</span>
-                    <span>С {{ booking.date_from }}</span>
-                    <span>По {{ booking.date_to }}</span>
+                    <span>✅ Booked</span>
+                    <span>From {{ booking.date_from }}</span>
+                    <span>To {{ booking.date_to }}</span>
                     <span class="font-bold text-3xl">{{ format_number_thousand_separator(booking.total_cost) }}</span>
-                    <span class="mb-3">за {{ booking.total_days }} ночей</span>
+                    <span class="mb-3">for {{ booking.total_days }} nights</span>
                     <span hidden id="bookingId">{{ booking.id }}</span>
-                    <button class="text-lg bg-red-400 px-3 py-1 rounded-3xl mb-4">Отменить бронь</button>
+                    <button class="text-lg bg-red-400 px-3 py-1 rounded-3xl mb-4">Cancel booking</button>
                 </div>
             </div>
         </div>

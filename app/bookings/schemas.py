@@ -11,3 +11,9 @@ class BookingSchema(BaseModel):
     price: int
     total_cost: int
     total_days: int
+
+
+class NewBookingSchema(BaseModel):
+    room_id: int
+    date_from: date
+    date_to: date

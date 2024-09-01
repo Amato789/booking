@@ -62,6 +62,7 @@ class HotelDAO(BaseDAO):
 
             rooms_available = select(
                 Hotels.__table__.columns,
+                func.min(HotelImages.name).label("images"),
                 func.sum(func.coalesce(booked_rooms_extended.c.qty_free_rooms, Rooms.quantity)).label("rooms_available")
             ).select_from(Rooms).join(
                 booked_rooms_extended,
@@ -71,7 +72,7 @@ class HotelDAO(BaseDAO):
                 Hotels,
                 Hotels.id == Rooms.hotel_id,
                 isouter=True
-            ).where(
+            ).join(HotelImages, HotelImages.hotel_id == Rooms.hotel_id, isouter=True).where(
                 and_(
                     or_(
                         booked_rooms_extended.c.qty_free_rooms > 0,
@@ -94,20 +95,17 @@ class HotelDAO(BaseDAO):
         """
         select hotels.id , hotels.name, hotelimages.name from hotels
         left join hotelimages on hotelimages.hotel_id=hotels.id
-        where hotels.id=1;
+        where hotels.id=1 limit 1;
         """
         async with async_session_maker() as session:
             query = select(
                 Hotels.__table__.columns,
-                HotelImages.name.label("images")
+                func.coalesce(HotelImages.name, '').label("images")
             ).join(
                 HotelImages,
                 HotelImages.hotel_id == Hotels.id,
                 isouter=True
-            ).where(Hotels.id == model_id)
-            # query = select(Hotels.__table__.columns).filter_by(id=model_id).options(joinedload(Hotels.images))
-
-            # query = (select(Hotels).options(joinedload(Hotels.images))).filter(Hotels.id == model_id)
+            ).where(Hotels.id == model_id).limit(1)
             result = await session.execute(query)
             return result.mappings().all()
 

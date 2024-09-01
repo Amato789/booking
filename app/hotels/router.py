@@ -23,9 +23,9 @@ async def get_hotels_by_location_and_date(
 
 
 @router.get("/{hotel_id}")
-# @cache(expire=60)
+@cache(expire=60)
 async def get_hotel(hotel_id: int) -> list[HotelSchemas]:
-    # await asyncio.sleep(3)
+    await asyncio.sleep(3)
     hotel = await HotelDAO.find_by_id(hotel_id)
     return hotel
 

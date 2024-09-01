@@ -10,7 +10,7 @@ class HotelSchemas(BaseModel):
     location: str
     services: list[str]
     rooms_quantity: int
-    images: str
+    images: str | None
 
 
 class HotelInfoSchemas(BaseModel):
@@ -20,6 +20,7 @@ class HotelInfoSchemas(BaseModel):
     services: list[str]
     rooms_quantity: int
     rooms_available: int
+    images: str | None
 
 
 class RoomSchema(BaseModel):
