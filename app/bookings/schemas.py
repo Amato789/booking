@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 from datetime import date
 
 
@@ -11,6 +11,8 @@ class BookingSchema(BaseModel):
     price: int
     total_cost: int
     total_days: int
+
+    model_config = ConfigDict(from_attributes=True)
 
 
 class NewBookingSchema(BaseModel):

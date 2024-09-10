@@ -4,6 +4,7 @@ from uuid import uuid4
 
 from app.exceptions import CannotAddDataToDatabase
 from app.images.dao import HotelImagesDAO
+from app.tasks.tasks import process_pic
 
 router = APIRouter(
     prefix="/images",
@@ -22,3 +23,5 @@ async def add_hotel_image(hotel_id: int, file: UploadFile):
 
     with open(file_path, "wb+") as file_object:
         shutil.copyfileobj(file.file, file_object)
+
+    process_pic.delay(file_path)

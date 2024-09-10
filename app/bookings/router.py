@@ -1,16 +1,12 @@
 from fastapi import APIRouter, Depends
-from app.database import async_session_maker
-from sqlalchemy import select
-from app.bookings.models import Bookings
+from app.bookings.service import BookingService
 from app.bookings.dao import BookingDAO
 from app.bookings.schemas import BookingSchema, NewBookingSchema
+from app.exceptions import RoomCannotBeBooked
 from app.users.models import Users
 from app.users.dependencies import get_current_user
-from datetime import date
-from app.exceptions import RoomCannotBeBooked
 from fastapi_versioning import version
 from pydantic import TypeAdapter
-
 
 router = APIRouter(
     prefix="/bookings",
@@ -30,21 +26,11 @@ async def add_booking(
         booking: NewBookingSchema,
         user: Users = Depends(get_current_user),
 ):
-    booking = await BookingDAO.add(
-        user_id=user.id,
-        room_id=booking.room_id,
-        date_from=booking.date_from,
-        date_to=booking.date_to
-    )
-    if not booking:
-        raise RoomCannotBeBooked
-    booking = TypeAdapter(NewBookingSchema).validate_python(booking).model_dump()
-    # TODO
-    # add background tasks (celery)
-    return booking
+    new_booking = await BookingService.add_booking(booking=booking, user=user)
+    return new_booking
 
 
 @router.delete("/{booking_id}")
 @version(2)
-async def remove_booking(booking_id: int, user: Users = Depends(get_current_user)):
+async def remove_booking(booking_id: int, user: Users = Depends(get_current_user)) -> None:
     await BookingDAO.remove(user_id=user.id, booking_id=booking_id)

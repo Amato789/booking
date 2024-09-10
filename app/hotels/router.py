@@ -15,6 +15,7 @@ router = APIRouter(
 
 
 @router.get("")
+@cache(expire=10)
 async def get_hotels_by_location_and_date(
         location: str,
         date_from: date = Query(..., description=f"Например, {datetime.now().date()}"),
@@ -23,13 +24,13 @@ async def get_hotels_by_location_and_date(
 
 
 @router.get("/{hotel_id}")
-@cache(expire=60)
+@cache(expire=10)
 async def get_hotel(hotel_id: int) -> list[HotelSchemas]:
-    await asyncio.sleep(3)
     hotel = await HotelDAO.find_by_id(hotel_id)
     return hotel
 
 
 @router.get("/{hotel_id}/rooms")
+@cache(expire=20)
 async def get_rooms(hotel_id: int) -> list[RoomSchema]:
     return await RoomDAO.find_all(hotel_id=hotel_id)
