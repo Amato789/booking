@@ -12,6 +12,8 @@ router = APIRouter(
 )
 
 
+# ddd
+
 @router.post("/hotels")
 async def add_hotel_image(hotel_id: int, file: UploadFile):
     file_name = f"{str(uuid4())}.webp"
