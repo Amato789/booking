@@ -4,7 +4,6 @@ from uuid import uuid4
 
 from app.exceptions import CannotAddDataToDatabase
 from app.images.dao import HotelImagesDAO
-from app.tasks.tasks import process_pic
 from PIL import Image
 
 router = APIRouter(

@@ -3,6 +3,7 @@ from app.bookings.service import BookingService
 from app.bookings.dao import BookingDAO
 from app.bookings.schemas import BookingSchema, NewBookingSchema
 from app.exceptions import RoomCannotBeBooked
+from app.tasks.tasks import send_booking_confirmation_email
 from app.users.models import Users
 from app.users.dependencies import get_current_user
 from fastapi_versioning import version
@@ -27,6 +28,7 @@ async def add_booking(
         user: Users = Depends(get_current_user),
 ):
     new_booking = await BookingService.add_booking(booking=booking, user=user)
+    send_booking_confirmation_email.delay(new_booking, user.email)
     return new_booking
 
 

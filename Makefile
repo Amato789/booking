@@ -1,7 +1,7 @@
 DC = docker compose
 EXEC = docker exec -it
 LOGS = docker logs
-ENV = --env-file .env.example
+ENV = --env-file .env
 APP_FILE = docker_compose/app.yaml
 APP_CONTAINER = booking_app
 

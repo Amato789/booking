@@ -1,9 +1,9 @@
-from app.database import async_session_maker
+from app.database import async_session_maker, async_session_maker_nullpool
 from sqlalchemy import select, and_, or_, func, insert, delete
 from app.bookings.models import Bookings
 from app.hotels.models import Rooms
 from app.dao.base import BaseDAO
-from datetime import date
+from datetime import date, datetime, timedelta
 from app.exceptions import RoomFullyBooked
 from sqlalchemy.exc import SQLAlchemyError
 from app.logger import logger
@@ -105,3 +105,14 @@ class BookingDAO(BaseDAO):
             )
             await session.execute(remove_booking)
             await session.commit()
+
+    @classmethod
+    async def get_bookings_by_date_from(cls, days: int):
+        async with async_session_maker_nullpool() as session:
+            now = datetime.now()
+            query = select(Bookings.__table__.columns).filter(
+                Bookings.date_from >= now,
+                Bookings.date_from <= now + timedelta(days=days),
+            )
+            result = await session.execute(query)
+            return result.mappings().all()

@@ -12,6 +12,10 @@ class Settings(BaseSettings):
     DB_PASS: str
     DB_NAME: str
 
+    POSTGRES_DB: str
+    POSTGRES_USER: str
+    POSTGRES_PASSWORD: str
+
     @property
     def get_database_url(self):
         return f"postgresql+asyncpg://{self.DB_USER}:{self.DB_PASS}@{self.DB_HOST}:{self.DB_PORT}/{self.DB_NAME}"
@@ -20,7 +24,12 @@ class Settings(BaseSettings):
     ALGORITHM: str
 
     REDIS_HOST: str
-    REDIS_PORT: str
+    REDIS_PORT: int
+
+    SMTP_HOST: str
+    SMTP_PORT: int
+    SMTP_USER: str
+    SMTP_PASS: str
 
     TEST_DB_HOST: str
     TEST_DB_PORT: int

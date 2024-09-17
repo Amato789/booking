@@ -15,5 +15,10 @@ engine = create_async_engine(DATABASE_URL, **DATABASE_PARAMS)
 async_session_maker = async_sessionmaker(engine, expire_on_commit=False)
 
 
+DATABASE_PARAMS_nullpool = {"poolclass": NullPool}
+engine_nullpool = create_async_engine(DATABASE_URL, **DATABASE_PARAMS_nullpool)
+async_session_maker_nullpool = sessionmaker(engine_nullpool, class_=AsyncSession, expire_on_commit=False)
+
+
 class Base(DeclarativeBase):
     pass

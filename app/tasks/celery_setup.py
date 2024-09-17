@@ -17,8 +17,8 @@ celery.conf.broker_connection_retry_on_startup = True
 celery.conf.beat_schedule = {
     "check_in_remainder_1": {
         "task": "check_in_remainder_tomorrow",
-        # "schedule": 10,  # в секундах
-        "schedule": crontab(minute="0", hour="9"),
+        "schedule": 30,  # в секундах
+        # "schedule": crontab(minute="0", hour="9"),
     },
     "check_in_remainder_2": {
         "task": "check_in_remainder_in_three_days",
