@@ -37,6 +37,8 @@ class Settings(BaseSettings):
     TEST_DB_PASS: str
     TEST_DB_NAME: str
 
+    SQLALCHEMY_ADMIN_SECRET_KEY: str
+
     @property
     def get_test_database_url(self):
         return (f"postgresql+asyncpg://{self.TEST_DB_USER}:{self.TEST_DB_PASS}@"
