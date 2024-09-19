@@ -3,7 +3,6 @@ import json
 from datetime import datetime
 
 import pytest
-import pytest_asyncio
 
 from app.config import settings
 from app.database import Base, async_session_maker, engine
@@ -14,7 +13,6 @@ from app.users.models import Users
 from app.images.models import HotelImages
 from sqlalchemy import insert
 
-from fastapi.testclient import TestClient
 from httpx import AsyncClient, ASGITransport
 
 from app.main import app as fastapi_app

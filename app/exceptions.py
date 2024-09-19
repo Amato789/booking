@@ -44,7 +44,7 @@ class RoomFullyBooked(BookingException):
 
 
 class RoomCannotBeBooked(BookingException):
-    status_code = status.HTTP_500_INTERNAL_SERVER_ERROR
+    status_code = status.HTTP_409_CONFLICT
     detail = "Не удалось забронировать номер ввиду неизвестной ошибки"
 
 
