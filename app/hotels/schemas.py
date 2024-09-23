@@ -1,7 +1,4 @@
-from typing import Optional
-
 from pydantic import BaseModel
-from app.images.schemas import HotelImagesSchemas
 
 
 class HotelSchemas(BaseModel):

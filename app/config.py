@@ -1,4 +1,5 @@
 from typing import Literal
+
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -18,7 +19,8 @@ class Settings(BaseSettings):
 
     @property
     def get_database_url(self):
-        return f"postgresql+asyncpg://{self.DB_USER}:{self.DB_PASS}@{self.DB_HOST}:{self.DB_PORT}/{self.DB_NAME}"
+        return (f"postgresql+asyncpg://{self.DB_USER}:{self.DB_PASS}@"
+                f"{self.DB_HOST}:{self.DB_PORT}/{self.DB_NAME}")
 
     SECRET_KEY: str
     ALGORITHM: str
@@ -38,6 +40,7 @@ class Settings(BaseSettings):
     TEST_DB_NAME: str
 
     SQLALCHEMY_ADMIN_SECRET_KEY: str
+    SENTRY_DSN: str
 
     @property
     def get_test_database_url(self):

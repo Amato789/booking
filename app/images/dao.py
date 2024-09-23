@@ -1,10 +1,10 @@
-from app.dao.base import BaseDAO
-from app.images.models import HotelImages
-from app.hotels.models import Hotels
-from app.database import async_session_maker
-from sqlalchemy import select, and_, or_, func, insert, delete
+from sqlalchemy import insert, select
 from sqlalchemy.exc import SQLAlchemyError
 
+from app.dao.base import BaseDAO
+from app.database import async_session_maker
+from app.hotels.models import Hotels
+from app.images.models import HotelImages
 from app.logger import logger
 
 
@@ -28,9 +28,9 @@ class HotelImagesDAO(BaseDAO):
                     return new_image.scalar()
         except (SQLAlchemyError, Exception) as e:
             if isinstance(e, SQLAlchemyError):
-                msg = "Database Exc: Cannot add booking"
+                msg = "Database Exc: Cannot add image"
             elif isinstance(e, Exception):
-                msg = "Unknown Exc: Cannot add booking"
+                msg = "Unknown Exc: Cannot add image"
             extra = {
                 "hotel_id": hotel_id,
                 "name": image_name,

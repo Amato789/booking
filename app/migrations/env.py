@@ -1,19 +1,16 @@
-from logging.config import fileConfig
 import sys
+from logging.config import fileConfig
 from os.path import abspath, dirname
 
-from sqlalchemy import engine_from_config
-from sqlalchemy import pool
-
 from alembic import context
+from sqlalchemy import engine_from_config, pool
 
+from app.bookings.models import Bookings  # noqa
 from app.config import settings
 from app.database import Base
-from app.hotels.models import Hotels, Rooms
-from app.bookings.models import Bookings
-from app.users.models import Users
-from app.images.models import HotelImages
-
+from app.hotels.models import Hotels, Rooms  # noqa
+from app.images.models import HotelImages  # noqa
+from app.users.models import Users  # noqa
 
 sys.path.insert(0, dirname(dirname(dirname(abspath(__file__)))))
 

@@ -1,8 +1,7 @@
 from sqladmin import ModelView
 
 from app.bookings.models import Bookings
-from app.hotels.models import Hotels
-from app.hotels.models import Rooms
+from app.hotels.models import Hotels, Rooms
 from app.images.models import HotelImages
 from app.users.models import Users
 
@@ -32,7 +31,8 @@ class RoomsAdmin(ModelView, model=Rooms):
 
 
 class BookingsAdmin(ModelView, model=Bookings):
-    column_list = [c.name for c in Bookings.__table__.c] + [Bookings.user, Bookings.room]
+    column_list = ([c.name for c in Bookings.__table__.c] +
+                   [Bookings.user, Bookings.room])
     name = "Booking"
     name_plural = "Bookings"
     icon = "fa-solid fa-book"

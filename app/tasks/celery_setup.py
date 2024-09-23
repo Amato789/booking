@@ -1,7 +1,7 @@
 from celery import Celery
 from celery.schedules import crontab
-from app.config import settings
 
+from app.config import settings
 
 celery = Celery(
     "tasks",
@@ -17,7 +17,7 @@ celery.conf.broker_connection_retry_on_startup = True
 celery.conf.beat_schedule = {
     "check_in_remainder_1": {
         "task": "check_in_remainder_tomorrow",
-        "schedule": 30,  # в секундах
+        "schedule": 30,
         # "schedule": crontab(minute="0", hour="9"),
     },
     "check_in_remainder_2": {

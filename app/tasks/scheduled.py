@@ -1,7 +1,8 @@
-from app.tasks.celery_setup import celery
-from datetime import datetime
-from app.bookings.dao import BookingDAO
 import asyncio
+from datetime import datetime
+
+from app.bookings.dao import BookingDAO
+from app.tasks.celery_setup import celery
 
 
 async def get_data():

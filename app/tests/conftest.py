@@ -3,19 +3,16 @@ import json
 from datetime import datetime
 
 import pytest
-
-from app.config import settings
-from app.database import Base, async_session_maker, engine
-
-from app.bookings.models import Bookings
-from app.hotels.models import Hotels, Rooms
-from app.users.models import Users
-from app.images.models import HotelImages
+from httpx import ASGITransport, AsyncClient
 from sqlalchemy import insert
 
-from httpx import AsyncClient, ASGITransport
-
+from app.bookings.models import Bookings
+from app.config import settings
+from app.database import Base, async_session_maker, engine
+from app.hotels.models import Hotels, Rooms
+from app.images.models import HotelImages
 from app.main import app as fastapi_app
+from app.users.models import Users
 
 
 @pytest.fixture(scope="session", autouse=True)
@@ -54,7 +51,6 @@ async def prepare_database():
         await session.commit()
 
 
-# Взято из документации к pytest-asyncio
 @pytest.fixture(scope="session")
 def event_loop(request):
     """Create an instance of the default event loop for each test case."""

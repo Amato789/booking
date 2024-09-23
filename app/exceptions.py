@@ -11,27 +11,27 @@ class BookingException(HTTPException):
 
 class UserAlreadyExistsException(BookingException):
     status_code = status.HTTP_409_CONFLICT
-    detail = "Пользователь уже существует"
+    detail = "The user already exists"
 
 
 class IncorrectEmailOrPasswordException(BookingException):
     status_code = status.HTTP_401_UNAUTHORIZED
-    detail = "Неверная почта или пароль"
+    detail = "Invalid email or password"
 
 
 class TokenExpiredException(BookingException):
     status_code = status.HTTP_401_UNAUTHORIZED
-    detail = "Срок действия токена истек"
+    detail = "The token has expired"
 
 
 class TokenAbsentException(BookingException):
     status_code = status.HTTP_401_UNAUTHORIZED
-    detail = "Токен отсутствует"
+    detail = "The token is missing"
 
 
 class IncorrectTokenFormatException(BookingException):
     status_code = status.HTTP_401_UNAUTHORIZED
-    detail = "Неверный формат токена"
+    detail = "Incorrect token format"
 
 
 class UserIsNotPresentException(BookingException):
@@ -40,29 +40,29 @@ class UserIsNotPresentException(BookingException):
 
 class RoomFullyBooked(BookingException):
     status_code = status.HTTP_409_CONFLICT
-    detail = "Не осталось свободных номеров"
+    detail = "There are no rooms left"
 
 
 class RoomCannotBeBooked(BookingException):
     status_code = status.HTTP_409_CONFLICT
-    detail = "Не удалось забронировать номер ввиду неизвестной ошибки"
+    detail = "Failed to book a room due to an unknown error"
 
 
 class DateFromCannotBeAfterDateTo(BookingException):
     status_code = status.HTTP_400_BAD_REQUEST
-    detail = "Дата заезда не может быть позже даты выезда"
+    detail = "The check-in date cannot be later than the check-out date"
 
 
 class CannotBookHotelForLongPeriod(BookingException):
     status_code = status.HTTP_400_BAD_REQUEST
-    detail = "Невозможно забронировать отель сроком более месяца"
+    detail = "Unable to book a hotel for more than one month"
 
 
 class CannotAddDataToDatabase(BookingException):
     status_code = status.HTTP_500_INTERNAL_SERVER_ERROR
-    detail = "Не удалось добавить запись"
+    detail = "Failed to add a record"
 
 
 class CannotProcessCSV(BookingException):
     status_code = status.HTTP_500_INTERNAL_SERVER_ERROR
-    detail = "Не удалось обработать CSV файл"
+    detail = "Failed to process CSV file"

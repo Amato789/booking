@@ -1,5 +1,6 @@
-from pydantic import BaseModel, ConfigDict, field_validator, ValidationInfo
 from datetime import date
+
+from pydantic import BaseModel, ConfigDict, ValidationInfo, field_validator
 
 
 class BookingSchema(BaseModel):

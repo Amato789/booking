@@ -1,5 +1,7 @@
 from email.message import EmailMessage
+
 from pydantic import EmailStr
+
 from app.config import settings
 
 
@@ -31,4 +33,3 @@ def check_in_remainder_tomorrow_template(booking: dict, email_to: EmailStr):
         subtype="html"
     )
     return email
-

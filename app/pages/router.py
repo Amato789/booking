@@ -1,9 +1,9 @@
-from fastapi import APIRouter, Request, Depends
-from fastapi.templating import Jinja2Templates
+from fastapi import APIRouter, Depends, Request
 from fastapi.responses import HTMLResponse
+from fastapi.templating import Jinja2Templates
 
-from app.hotels.router import get_hotels_by_location_and_date
 from app.bookings.router import get_bookings
+from app.hotels.router import get_hotels_by_location_and_date
 from app.utils import format_number_thousand_separator
 
 router = APIRouter(
@@ -27,12 +27,18 @@ async def get_hotels_page(
 
 @router.get("/login", response_class=HTMLResponse)
 async def get_login_page(request: Request):
-    return templates.TemplateResponse(name="auth/login.html", context={"request": request})
+    return templates.TemplateResponse(
+        name="auth/login.html",
+        context={"request": request}
+    )
 
 
 @router.get("/register", response_class=HTMLResponse)
 async def get_register_page(request: Request):
-    return templates.TemplateResponse(name="auth/register.html", context={"request": request})
+    return templates.TemplateResponse(
+        name="auth/register.html",
+        context={"request": request}
+    )
 
 
 # @router.post("/successful_booking", response_class=HTMLResponse)
