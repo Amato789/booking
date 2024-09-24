@@ -10,7 +10,22 @@
 
 ## About
 
-The project is a hotel booking service.
+**Booking** is a web-based hotel booking service built with **FastAPI**. It offers a streamlined interface for managing users, hotels, rooms, and reservations. The platform is designed for scalability and ease of use, ensuring an efficient booking experience.
+
+### Key Features
+
+#### User Management
+- User registration and authentication via JWT for secure session management.
+
+#### Hotel and Room Management
+- View detailed information about hotels and rooms.
+- Access a list of available hotels.
+
+#### Booking System
+- Book rooms and manage reservations.
+- Cancel existing bookings.
+- View user-specific booking history for convenient tracking.
+
 
 ## Running with Docker ![Docker](https://img.shields.io/badge/docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)
 
